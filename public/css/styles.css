@@ -1,0 +1,52 @@
+.contenedor{
+    max-width: 95%;
+    margin: 2rem auto 0 auto;
+
+}
+.camara{
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+#reader__dashboard_section_csr button{
+    border: none ;
+    background-color: #3F00FF;
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 5px;
+    margin:1rem auto 1rem auto;
+}
+
+.codigoQr__form{
+    margin-top: 30px;
+}
+
+
+.logo__container{
+    max-width:95%;
+    margin: 0 auto;
+}
+.logo__container img{
+    max-width: 100%;
+}
+
+
+@media(min-width:768px){
+    .contenedor, .logo__container{
+        max-width: 40%;
+    }
+}
+
+
+.usuario_success, .errores{
+    text-align: center;
+    font-size: 30px;
+    font-weight: 700;
+    padding-top: 5px;
+}
+
+#audio{
+    display: none
+    }
