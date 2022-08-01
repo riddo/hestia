@@ -47,7 +47,9 @@
                                  @if ($empleados)
                                     @foreach ($empleados as $empleado)
                                         <tr>
-                                            <td>{{ $empleado->empleado_nombre ." ".$empleado->empleado_apellido }}</td>
+                                            <td>{{ $empleado->empleado_nombre ." ".$empleado->empleado_apellido }}
+                                                <button type="button" value="{{$empleado->codigo}}, {{$empleado->empleado_nombre ." ".$empleado->empleado_apellido}}"class="btn btn-outline-success btn-block btn-sm btnModalQr"><i class="fas fa-qrcode"></i> Generar QR</button>
+                                            </td>
                                             <td>{{ $empleado->empleado_rut}}</td>
                                             <td>{{ $empleado->cargos->cargo_nombre}}</td>
                                             <td>{{ $empleado->empleado_direccion == null ? 'Sin dirección' :  $empleado->empleado_direccion}}</td>
@@ -123,4 +125,5 @@
 
 
     </script>
+
 @endsection

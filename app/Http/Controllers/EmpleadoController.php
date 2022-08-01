@@ -61,7 +61,7 @@ class EmpleadoController extends Controller
         }
 
         /****GENERAR CODIGO QR a traves de un codigo */
-        $nAleatorio = rand(1, 1000);
+        $nAleatorio = rand(1, 5000);
         $codigo_qr = $request->nombreEmpleado."".$request->apellidoEmpleado."".$nAleatorio;
 
         $empleado = new Empleado;
@@ -185,4 +185,26 @@ class EmpleadoController extends Controller
             'status' => 200,
         ]);
     }
+
+
+    public function updateQr($QrCode){
+
+        $empleado = Empleado::where('codigo', '=', $QrCode)->first();
+        if(!$empleado == null){
+            $nAleatorio = rand(1, 5000);
+            $newQrCode = $empleado->empleado_nombre."".$empleado->empleado_apellido."".$nAleatorio;
+            if($newQrCode!==$QrCode){
+                $empleado->codigo = $newQrCode;
+                $empleado->update();
+                return response()->json([
+                    'resp' => 'exito',
+                    'QrCode' => $empleado->codigo,
+                    'status' => 200
+                ]);
+            }
+            }
+
+
+    }
+
 }

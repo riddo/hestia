@@ -189,10 +189,44 @@
 </div>
 
 
+<!-- Modal generar QR -->
+<div class="modal fade" id="codigoQrEmpleadoModal" tabindex="-1" role="dialog" aria-labelledby="codigoQrEmpleadoTitulo"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="codigoQrEmpleadoTitulo">Generar Código QR</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="actualizarQr">
+
+                <div class="modal-body">
+                    @csrf
+                    <input type="hidden" id="codigoQr">
+                    <h4 id="tituloCodigoQr"></h4>
+
+                    <div class="codigoQrImg text-center">
+                        <img   alt="codigo qr" id="codigoQrImg">
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary btnActualizar"><i class="fas fa-sync-alt"></i> Actualizar QR</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 
 
 <!--Validar formularios -->
+<script src="{{asset('public/utils')}}/QrGenerator.js"></script>
 <script src="{{ asset('public/utils') }}/app_empleados.js"></script>
+
 
 
 

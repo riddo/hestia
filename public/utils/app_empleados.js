@@ -167,4 +167,70 @@ $(function(){
         })
 
     })
+
+
+    /**Modal generar QR ***/
+
+    $("#tablaEmpleados").on('click', ".btnModalQr", function(e){
+        e.preventDefault();
+        const datos = $(this).val();
+        const datosArray = datos.split(",");
+        const codigo = datosArray[0];
+        const nombreCompleto = datosArray[1];
+
+
+
+        $("#codigoQrEmpleadoModal").modal('show');
+        $("#tituloCodigoQr").text(nombreCompleto);
+        $("#codigoQr").val(codigo);
+        dibujarQr(codigo);
+
+    })
+
+    const actualizarQrForm = $("#actualizarQr");
+
+    actualizarQrForm.on('submit', (e) => {
+
+        e.preventDefault();
+        const codigo = $("#codigoQr").val();
+
+        $("#codigoQrEmpleadoModal").modal('hide');
+
+        $.ajax({
+            data: {
+                "_token": $("meta[name='csrf-token']").attr("content"),
+                "codigo": codigo
+            },
+            type: "POST",
+            url: `empleados/updateQr/${codigo}`,
+            success: (response)=>{
+                if(response.resp == 'exito'){
+                    const newQrCode = response.QrCode;
+                    dibujarQr(newQrCode);
+                    Toast.fire({
+                        icon: 'success',
+                        title: ' Código QR actualizado satisfactoriamente',
+
+                    }).then(function(){
+                        window.location = "empleados";
+                    })
+
+
+                }
+            }
+        })
+    })
+
+
+    const dibujarQr  = (codigo) => {
+        new QRious({
+            element: document.querySelector("#codigoQrImg"),
+            value: codigo,
+            size: 200,
+            backgroundAlpha: 0, // 0 para fondo transparente
+            foreground: "#000", // Color del QR
+            level: "H", // Puede ser L,M,Q y H (L es el de menor nivel, H el mayor)
+          });
+
+    }
 })

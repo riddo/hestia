@@ -19,14 +19,14 @@ class RegistroController extends Controller
         //Acá guardo el resultado de la diferencia de minutos
         $minutos = [];
 
-        for($i = 0; $i < sizeof($asistencias); $i++){
-            $fecha1 = Carbon::create($asistencias[$i]['registro_fecha']);
-            $z = $i+1;
-            $fecha2 = Carbon::create($asistencias[$z]['registro_fecha']);
-            $min = $fecha1->diffInMinutes($fecha2);
-            $i = $z;
-            array_push($minutos, $min);
-        }
+        // for($i = 0; $i < sizeof($asistencias); $i++){
+        //     $fecha1 = Carbon::create($asistencias[$i]['registro_fecha']);
+        //     $z = $i+1;
+        //     $fecha2 = Carbon::create($asistencias[$z]['registro_fecha']);
+        //     $min = $fecha1->diffInMinutes($fecha2);
+        //     $i = $z;
+        //     array_push($minutos, $min);
+        // }
         // printf(Carbon::now());
         // $fecha1 = Carbon::create($asistencias[0]['registro_fecha']);
         // $fecha2 = Carbon::create($asistencias[1]['registro_fecha']);
@@ -35,15 +35,15 @@ class RegistroController extends Controller
         // echo "</br>";
         // echo "Diferencia: ".$fecha1->diffInMinutes($fecha2);
         //echo Carbon::diffInMinutes()
-        foreach($minutos as $minuto){
-            echo $minuto." minutos";
-            echo "<br>";
-        }
+        // foreach($minutos as $minuto){
+        //     echo $minuto." minutos";
+        //     echo "<br>";
+        // }
 
-        foreach($asistencia as $asistencia){
+        // foreach($asistencia as $asistencia){
 
-        }
-        //return view('admin.registros.index', ["asistencias" => $asistencias]);
+        // }
+        return view('admin.registros.index');
     }
 
 }

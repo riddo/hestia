@@ -50,6 +50,7 @@ Route::delete('admin/horarios/{id}/delete', [HorarioController::class, 'destroy'
 //Empleados
 //Create, Read, Update
 Route::resource('admin/empleados', EmpleadoController::class);
+Route::post('admin/empleados/updateQr/{codigo}', [EmpleadoController::class, 'updateQr']);
 //Delete
 Route::delete('admin/empleados/{id}/delete', [EmpleadoController::class, 'destroy']);
 
