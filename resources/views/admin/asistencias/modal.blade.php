@@ -68,7 +68,7 @@
                         <input type="hidden" id="idAsistencia">
                         <label>Editar fecha y hora del registro</label>
                         <div class="input-group date" id="reservationdatetime" data-target-input="nearest">
-                            <input type="datetime" class="form-control datetimepicker-input" data-target="#reservationdatetime" name="fechaHoraRegistro" id="fechaHoraRegistro"/>
+                            <input type="text" class="form-control datetimepicker-input" data-target="#reservationdatetime" name="editFechaHoraRegistro" id="editFechaHoraRegistro"/>
                             <div class="input-group-append" data-target="#reservationdatetime" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>

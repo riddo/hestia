@@ -85,74 +85,29 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="index3.html" class="brand-link">
-                <img src="{{ asset('public/lteadmin') }}/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
+                <img src="{{ asset('public/img/hestia.png') }}" alt="Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">AdminLTE 3</span>
+                <span class="brand-text font-weight-light">{{ session()->get('adminData')[0]['empresa']}}</span>
             </a>
 
             <!-- Sidebar -->
             <div class="sidebar">
-                <!-- Sidebar user panel (optional) -->
+
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="{{ asset('public/lteadmin') }}/dist/img/user2-160x160.jpg"
+                        <img src="{{ asset('public/img/admin.png') }}"
                             class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Ricardo Olivero</a>
+                        <a href="#" class="d-block">{{ session()->get('adminData')[0]['nombreCompleto']}}</a>
                     </div>
                 </div>
 
-                <!-- SidebarSearch Form
-      <div class="form-inline">
-        <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-          <div class="input-group-append">
-            <button class="btn btn-sidebar">
-              <i class="fas fa-search fa-fw"></i>
-            </button>
-          </div>
-        </div>
-      </div>-->
 
-                <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-                        {{-- <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Starter Pages
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Active Page</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Inactive Page</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Simple Link
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
-          </li> --}}
+
                         <li class="nav-item">
                             <a href="{{ url('admin/') }}" class="nav-link">
                                 <i class="fas fa-home">&nbsp;</i>
@@ -190,7 +145,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <a href="{{ url('admin/asistencias/') }}" class="nav-link">
                                 <i class="fas fa-clipboard-list">&nbsp;</i>
                                 <p>
-                                    Asistencias
+                                    Registros
                                 </p>
                             </a>
                         </li>
@@ -198,12 +153,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <a href="{{ url('admin/registros/') }}" class="nav-link">
                                 <i class="fas fa-book">&nbsp;</i>
                                 <p>
-                                    Registros
+                                   Informes
                                 </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('admin/configuracion/') }}" class="nav-link">
+
+                            <a href="{{ url('admin/config')}}/{{session()->get('adminData')[0]['id']}}" class="nav-link">
                                 <i class="fas fa-tools">&nbsp;</i>
                                 <p>
                                     Configuración
@@ -244,10 +200,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <footer class="main-footer">
             <!-- To the right -->
             <div class="float-right d-none d-sm-inline">
-                Anything you want
+                HestiaDmin Controller By Riddo
             </div>
             <!-- Default to the left -->
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights
+            <strong>Copyright &copy; 2022 <a href="https://fpymeatacama.cl" target="_blank">FpymeAtacama 2022</a>.</strong> All rights
             reserved.
         </footer>
     </div>
@@ -262,12 +218,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="{{ asset('public/lteadmin') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Select2 -->
     <script src="{{ asset('public/lteadmin') }}/plugins/select2/js/select2.full.min.js"></script>
-    <!-- date-range-picker -->
-    <script src="{{ asset('public/lteadmin') }}/plugins/daterangepicker/daterangepicker.js"></script>
-
     <!--- Moment -->
     <script src="{{ asset('public/lteadmin') }}/plugins/moment/moment.min.js"></script>
     <script src="{{ asset('public/lteadmin') }}/plugins/moment/moment-with-locales.min.js"></script>
+
+    <!-- date-range-picker -->
+    <script src="{{ asset('public/lteadmin') }}/plugins/daterangepicker/daterangepicker.js"></script>
+
 
 
     <!-- SweetAlert2 -->
@@ -295,6 +252,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="{{ asset('public/lteadmin') }}/plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="{{ asset('public/lteadmin') }}/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
     <script src="{{ asset('public/lteadmin') }}/dist/js/adminlte.min.js"></script>
+    <script src="{{ asset('public/utils') }}/app_informes.js"></script>
+
     <script>
         $(function() {
             $('.select2').select2();
@@ -308,29 +267,35 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         })
 
-
         //Date range as a button
-        $('#daterange-btn').daterangepicker({
-                ranges: {
-                    'Today': [moment(), moment()],
-                    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                    'This Month': [moment().startOf('month'), moment().endOf('month')],
-                    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf(
-                        'month')]
-                },
-                startDate: moment().subtract(29, 'days'),
-                endDate: moment(),
 
+
+        $(document).ready(function() {
+            $('.selectorEmpleados').select2();
+            $('.selectorMeses').select2();
+        });
+
+
+
+        $('#fechaRegistro').daterangepicker({
+            icons: {
+                time: 'far fa-clock'
             },
-            function(start, end) {
-                $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-            }
-        )
+            locale: moment.locale('es'),
+        });
+
+        $("#print").on("click", function(){
+         $(this).css("display", "none");
+         setTimeout(() => {
+            $(this).css("display", "block");
+         }, 2000);
+        })
     </script>
 
+
     @yield('scripts')
+
+
 </body>
 
 </html>

@@ -5,12 +5,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Asistencias </h1>
+                    <h1 class="m-0">Registros </h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('admin') }}">Inicio</a></li>
-                        <li class="breadcrumb-item active">Asistencias</li>
+                        <li class="breadcrumb-item active">Registros</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -25,7 +25,7 @@
 
                         <button type="button" class="btn btn-outline-info btn-flat " data-toggle="modal"
                             data-target="#nuevoAsistencia">
-                            <i class="fas fa-plus-circle"></i>&nbsp; Nueva Asistencia
+                            <i class="fas fa-plus-circle"></i>&nbsp; Nuevo Registro
                         </button>
                     </div>
                     <!-- /.card-header -->
@@ -106,13 +106,11 @@
                 "lengthChange": false,
                 "autoWidth": false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-                "responsive": true,
+                "order": [],
 
 
             }).buttons().container().appendTo('#tablaAsistencias_wrapper .col-md-6:eq(0)');
 
         });
-
-
     </script>
 @endsection

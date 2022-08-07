@@ -86,7 +86,7 @@ $("#tablaAsistencias").on('click', '.editarAsistencia', function(e){
         success: function (respuesta) {
 
             if (respuesta.status === 200) {
-                $("#fechaHoraRegistro").val(respuesta.fecha);
+                $("#editFechaHoraRegistro").val(respuesta.fecha);
                 $("#idAsistencia").val(idRegistro);
             }
         }
@@ -99,22 +99,31 @@ $("#tablaAsistencias").on('click', '.editarAsistencia', function(e){
     $("#editarAsistenciaForm").on('submit', (e) => {
         e.preventDefault();
         const idAsistencia = $("#idAsistencia").val();
+        let data = $("#editFechaHoraRegistro").val();
+        const fecha = data.split("/");
+        let añoHora = fecha[2];
+        let splitAñoHora = añoHora.split(" ");
+        const fechaCompleta = `${fecha[0]}-${fecha[1]}-${splitAñoHora[0]} ${splitAñoHora[1]}`;
 
-        // $.ajaxSetup({
-        //     headers: {
-        //         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-        //     }
-        // });
+
+
+
         $.ajax({
             type: "PUT",
             url: `asistencia/${idAsistencia}/update`,
-            data: $("#editarAsistenciaForm").serialize(),
+            data:  {
+                "_token": $("meta[name='csrf-token']").attr("content"),
+                "data": fechaCompleta,
+            },
             dataType: 'json',
             success: function(respuesta){
                 console.log(respuesta)
                 if(respuesta.status === 400){
                     $.each(respuesta.errors, function (key, err_values) {
-                        $('.errores_editar').text(err_values);
+                        $('.errores_editar').text("No se ha hecho ninguna actualización");
+                        setTimeout(() => {
+                            $('.errores_editar').text("");
+                        }, 2000);
                     })
                 }
                 else if(respuesta.status === 200){

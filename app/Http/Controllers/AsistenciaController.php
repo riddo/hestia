@@ -5,14 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Asistencia;
 use App\Models\Empleado;
+use App\Models\Admin;
 use DateTime;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf;
 class AsistenciaController extends Controller
 {
 
     public function index(){
-        $asistencias = Asistencia::all();
+        $asistencias = Asistencia::all()->sortByDesc("id");
 
         $empleados = Empleado::all();
         return view('admin.asistencias.index', ['asistencias' => $asistencias, 'empleados' => $empleados]);
@@ -43,6 +45,9 @@ class AsistenciaController extends Controller
                 $nombreEmpleado = $empleado->empleado_nombre." ".$empleado->empleado_apellido;
                 //Guardo el id del empleado
                 $empleadoId = $empleado->id;
+
+
+
                 $saludo = self::ultimaAsistencia($empleadoId);
 
                 //$nuevaAsistencia = new Asistencia();
@@ -160,6 +165,21 @@ class AsistenciaController extends Controller
 
         }
 
+        $asistencia = Asistencia::latest('registro_fecha')->where('asistencia_idEmpleado', '=', $empleadoId)->first();
+
+
+
+        $pdf = Pdf::loadView('pdf.asistencia-pdf', [
+            'nombreCompleto' => $empleado->empleado_nombre." ".$empleado->empleado_apellido,
+            'run' => $empleado->empleado_rut,
+            "asistenciaTipo"=> $asistencia->registro_tipo,
+            "asistenciaFecha"=> date("d-m-Y H:i", strtotime($asistencia->registro_fecha)),
+            'email'=> $empleado->empleado_correo,
+        ]);
+
+        $admin = Admin::find(1);
+        $correo = $admin->correo;
+        Asistencia::enviarEmail($correo, $empleado, $asistencia, $pdf);
         return $saludo;
     }
 
@@ -169,7 +189,7 @@ class AsistenciaController extends Controller
 
         return response()->json([
             'status' => 200,
-            'fecha' => date('d/m/Y H:s', strtotime($fechaRegistro))
+            'fecha' => date('d/m/Y H:i', strtotime($fechaRegistro))
 
         ]);
     }
@@ -178,36 +198,37 @@ class AsistenciaController extends Controller
     {
         //Validation
 
-        $validator = Validator::make($request->all(), [
-                'fechaHoraRegistro' => 'required'
-            ],
-            [
-                'fechaHoraRegistro.required' => 'El campo no puede estar vacío'
-            ]
-        );
-        if($validator->fails()){
-            return response()->json([
-                'status' => 400,
-                'errors' => $validator->messages()
-            ]);
-        }
+        // $validator = Validator::make($request->all(), [
+        //         'editFechaHoraRegistro' => 'required'
+        //     ],
+        //     [
+        //         'editFechaHoraRegistro.required' => 'El campo no puede estar vacío'
+        //     ]
+        // );
+        // if($validator->fails()){
+        //     return response()->json([
+        //         'status' => 400,
+        //         'errors' => $validator->messages()
+        //     ]);
+        // }
 
         $fechaRegistro = Asistencia::find($id);
-        $fechaSinFormato = date("Y-m-d H:i:s", strtotime($request->fechaHoraRegistro));
-        $fechaFormateada = new Datetime($fechaSinFormato);
-        if($fechaRegistro != null){
-            $fechaRegistro->registro_fecha = $fechaFormateada;
-            $fechaRegistro->update();
-            return response()->json([
-                'resp' => 'exito',
-                'status' => 200
-            ]);
-        }else{
-            return response()->json([
-                'status' => 404,
-                'errors' => "Error"
-            ]);
-        }
+
+         $fechaSinFormato = date("Y-m-d H:i", strtotime($request->data));
+         $fechaFormateada = new Datetime($fechaSinFormato);
+         if($fechaRegistro != null){
+             $fechaRegistro->registro_fecha = $fechaFormateada;
+             $fechaRegistro->update();
+             return response()->json([
+                 'resp' => 'exito',
+                 'status' => 200
+             ]);
+         }else{
+             return response()->json([
+                 'status' => 404,
+                 'errors' => "Error"
+             ]);
+         }
 
     }
 

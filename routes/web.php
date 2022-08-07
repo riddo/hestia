@@ -24,9 +24,11 @@ Route::get('/', function () {
 });
 
 //Admin dashboard
-Route::get('admin', function () {
-    return view('admin.dashboard');
-});
+Route::get('admin', [AdminController::class, 'getInfo']);
+
+Route::get('admin/config/{id}', [AdminController::class, 'config']);
+
+Route::put('admin/config/update', [AdminController::class, 'update']);
 
 //Admin
 
@@ -78,5 +80,11 @@ Route::post("admin/verifAsist", [AsistenciaController::class, 'getEmpleadoFromAd
 Route::post("admin/asistencia/save", [AsistenciaController::class, 'storeFromAdmin']);
 Route::get("admin/asistencia/{id}", [AsistenciaController::class, 'edit']);
 Route::put("admin/asistencia/{id}/update", [AsistenciaController::class, 'update']);
+
+
+
+
+/****REPORTES****/
 Route::get("admin/registros", [RegistroController::class, 'index']);
-/****DOCUMENTOS****/
+Route::post("admin/registros/consultar", [RegistroController::class, 'consultar']);
+Route::get("admin/registros/consultar/pdf", [RegistroController::class, 'generarPDF']);

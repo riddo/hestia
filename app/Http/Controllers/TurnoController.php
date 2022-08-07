@@ -42,7 +42,7 @@ class TurnoController extends Controller
 
         /** Guardar turno en la base de datos **/
         $idHorario = $request->idHorario;
-        $turno = Turno::where('horario_id', "=", $idHorario)->first();
+        $turno = Turno::where(['horario_id' => $idHorario, 'empleado_id' => $idEmpleado])->first();
         if($turno==null){
             $turnoNuevo = new Turno;
             $turnoNuevo->empleado_id = $idEmpleado;
