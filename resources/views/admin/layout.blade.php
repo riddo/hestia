@@ -13,7 +13,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <script>
             window.location.href = "{{ url('admin/login') }}";
         </script>
-    @endif
+    @else
+        @php
+        $empresa = session()->get('adminData')[0]['empresa'];
+        $nombreCompleto = session()->get('adminData')[0]['nombreCompleto'];
+        $id = session()->get('adminData')[0]['id'];
+        @endphp
+
+
+
+
+
+
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -84,10 +96,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
+            <a href="{{url('admin')}}" class="brand-link">
                 <img src="{{ asset('public/img/hestia.png') }}" alt="Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">{{ session()->get('adminData')[0]['empresa']}}</span>
+                <span class="brand-text font-weight-light">{{$empresa}}</span>
             </a>
 
             <!-- Sidebar -->
@@ -99,7 +111,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">{{ session()->get('adminData')[0]['nombreCompleto']}}</a>
+                        <a href="#" class="d-block">{{$nombreCompleto}}</a>
                     </div>
                 </div>
 
@@ -159,7 +171,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </li>
                         <li class="nav-item">
 
-                            <a href="{{ url('admin/config')}}/{{session()->get('adminData')[0]['id']}}" class="nav-link">
+                            <a href="{{ url('admin/config')}}{{'/'.$id}}" class="nav-link">
                                 <i class="fas fa-tools">&nbsp;</i>
                                 <p>
                                     Configuración
@@ -168,6 +180,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </li>
                     </ul>
                 </nav>
+                @endif
                 <!-- /.sidebar-menu -->
             </div>
             <!-- /.sidebar -->

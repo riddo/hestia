@@ -39,7 +39,7 @@ class Asistencia extends Model
             $message->cc($empleado->empleado_correo);
             //$message->bcc('john@johndoe.com', 'John Doe');
             //$message->replyTo('john@johndoe.com', 'John Doe');
-            $message->subject('Asistencia');
+            $message->subject('Monitoreo');
             $message->priority(3);
             $message->attachData($pdf->output(), $path, [
                  "mime" => "application/pdf",

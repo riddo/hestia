@@ -155,6 +155,7 @@ class EmpleadoController extends Controller
             $empleado->empleado_direccion = $request->editarDireccionEmpleado;
             $empleado->empleado_correo = $request->editarEmailEmpleado;
             $empleado->empleado_genero = $request->editarGeneroEmpleado;
+            $empleado->empleado_idCargo = $request->editarCargoEmpleado;
             $empleado->update();
             return response()->json([
                 'resp' => 'exito',
